@@ -33,5 +33,5 @@ jobs:
 
       - name: CLI demo (basic.json must fail with exit 1)
         run: |
-          python -m llm_eval run examples/basic.json --report report.md --json report.json; code=$?
+          code=0; python -m llm_eval run examples/basic.json --report report.md --json report.json || code=$?
           if [ "$code" -ne 1 ]; then echo "expected exit 1, got $code"; exit 1; fi
