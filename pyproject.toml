@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm-eval-ci"
+version = "0.1.0"
+description = "pytest for LLMs and agents in CI — deterministic, offline-first evals (stdlib only)"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+authors = [{ name = "llm-eval-ci" }]
+keywords = ["llm", "eval", "testing", "ci", "agents"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Testing",
+]
+dependencies = []
+
+[project.scripts]
+llm-eval = "llm_eval.cli:main"
+
+[project.entry-points.pytest11]
+llm-eval-ci = "llm_eval.pytest_plugin"
+
+[project.urls]
+Homepage = "https://github.com/shenn667/llm-eval-ci"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["llm_eval"]
+branch = false
+
+[tool.coverage.report]
+show_missing = true
+exclude_also = ["raise AssertionError", "pragma: no cover"]

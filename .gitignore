@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg-info
+.eggs/
+build/
+dist/
+.venv/
+ai_env/
+
+# Test / coverage caches
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Secrets — NEVER commit (brief §2: fixtures FAKE/EXAMPLE only)
+.env
+.env.local
+.env.*
+*.key
+*.pem
+
+# Local eval outputs (regenerable)
+report.md
+report.json
+reports/
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

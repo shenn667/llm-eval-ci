@@ -1,0 +1,75 @@
+[
+  {
+    "id": "within_budgets",
+    "prompt": "Reply with the single word 'ok'.",
+    "stub": {
+      "output": "ok",
+      "usage": {"tokens": 5, "cost_usd": 0.0001},
+      "delay_ms": 5
+    },
+    "checks": [
+      {"type": "contains", "value": "ok"},
+      {"type": "budget_tokens"},
+      {"type": "budget_latency"},
+      {"type": "budget_cost"}
+    ],
+    "budgets": {"max_tokens": 50, "max_latency_ms": 2000, "max_cost_usd": 0.01},
+    "note": "EXPECTED: PASS. All three budgets respected; reference green case for budget checks."
+  },
+  {
+    "id": "too_many_tokens",
+    "prompt": "Reply with the single word 'ok'.",
+    "stub": {
+      "output": "ok. ok. ok. (verbose model dumped 500 tokens of rambling after the answer)",
+      "usage": {"tokens": 500, "cost_usd": 0.0001},
+      "delay_ms": 5
+    },
+    "checks": [
+      {"type": "budget_tokens"}
+    ],
+    "budgets": {"max_tokens": 100, "max_latency_ms": 2000, "max_cost_usd": 0.01},
+    "note": "EXPECTED: FAIL with failed_checks=['budget_tokens']. 500 tokens used > 100 allowed."
+  },
+  {
+    "id": "too_slow",
+    "prompt": "Reply with the single word 'ok'.",
+    "stub": {
+      "output": "ok",
+      "usage": {"tokens": 5, "cost_usd": 0.0001},
+      "delay_ms": 300
+    },
+    "checks": [
+      {"type": "budget_latency"}
+    ],
+    "budgets": {"max_tokens": 50, "max_latency_ms": 50, "max_cost_usd": 0.01},
+    "note": "EXPECTED: FAIL with failed_checks=['budget_latency']. Simulated 300 ms model delay exceeds the 50 ms budget. delay_ms is a StubModel-only simulation knob; with real models latency is measured wall-clock."
+  },
+  {
+    "id": "too_expensive",
+    "prompt": "Reply with the single word 'ok'.",
+    "stub": {
+      "output": "ok",
+      "usage": {"tokens": 5, "cost_usd": 0.05},
+      "delay_ms": 5
+    },
+    "checks": [
+      {"type": "budget_cost"}
+    ],
+    "budgets": {"max_tokens": 50, "max_latency_ms": 2000, "max_cost_usd": 0.01},
+    "note": "EXPECTED: FAIL with failed_checks=['budget_cost']. $0.05 spent > $0.01 allowed."
+  },
+  {
+    "id": "usage_not_declared",
+    "prompt": "Reply with the single word 'ok'.",
+    "stub": {
+      "output": "ok",
+      "usage": null,
+      "delay_ms": 5
+    },
+    "checks": [
+      {"type": "budget_tokens"}
+    ],
+    "budgets": {"max_tokens": 50, "max_latency_ms": 2000, "max_cost_usd": 0.01},
+    "note": "EXPECTED: FAIL with failed_checks=['budget_tokens']. The model did not declare usage, so no budget can be verified. Unverifiable spend fails closed, per the brief."
+  }
+]
