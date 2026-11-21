@@ -7,7 +7,7 @@ from pathlib import Path
 
 import pytest
 
-from llm_eval import RunResult, Suite, SuiteResult
+from llm_eval import __version__, RunResult, Suite, SuiteResult
 from llm_eval.cli import build_parser, main, run_suite
 from llm_eval.models import StubMissingError, StubModel
 from llm_eval.reporters import json_report, markdown
@@ -165,10 +165,10 @@ def test_json_report_contract_and_masking(tmp_path):
         assert secret not in blob
     rp = tmp_path / "r.json"
     json_canonical.write_json_report(result, str(rp))
-    assert json.loads(rp.read_text(encoding="utf-8"))["version"] == "0.1.0"
+    assert json.loads(rp.read_text(encoding="utf-8"))["version"] == __version__
     out = tmp_path / "r2.json"
     result.write_json(str(out))
-    assert json.loads(out.read_text(encoding="utf-8"))["version"] == "0.1.0"
+    assert json.loads(out.read_text(encoding="utf-8"))["version"] == __version__
     result.write_markdown(str(tmp_path / "r2.md"))
 
 

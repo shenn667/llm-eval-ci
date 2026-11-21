@@ -1,6 +1,6 @@
 """llm-eval-ci — pytest for LLMs/agents in CI (stdlib-only, offline-first)."""
 
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 from .models import ModelFn, StubMissingError, StubModel
 from .suite import CaseResult, RunResult, Suite, SuiteLoadError, load_suite_file

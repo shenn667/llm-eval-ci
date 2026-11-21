@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llm-eval-ci"
-version = "0.1.0"
+version = "0.1.1"
 description = "pytest for LLMs and agents in CI — deterministic, offline-first evals (stdlib only)"
 readme = "README.md"
 license = { text = "MIT" }
