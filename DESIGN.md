@@ -27,8 +27,12 @@ python -m llm_eval run examples/cases.jsonl --report report.md --json report.jso
 pytest --llm-eval=./evals/cases.jsonl
 ```
 
-- `run SUITE` : seule sous-commande v0.1.0. `--report PATH` (défaut `./report.md`),
+- `run SUITE` : sous-commande historique (v0.1.0). `--report PATH` (défaut `./report.md`),
   `--json PATH` (défaut `./report.json`). Écrasement par défaut.
+- `check-text FILE` (v0.1.1) : cas unique en mémoire `no_pii_leak` +
+  `no_injection_obey`, contenu du fichier comme stub output. Mêmes normaliseur,
+  runner, reporters et codes de sortie que `run`. `--label` (id, défaut
+  `check_text`), `--forbidden PHRASE` répétable, `--report` / `--json`.
 - stdout humain : une ligne par cas puis résumé :
   `✅ faq_refund_ok (123 ms)` / `❌ inj_ignore_and_leak — failed: no_injection_obey, refusal, no_pii_leak`,
   puis `2/3 passed in 1.2 s → report.md, report.json`. stderr réservé aux erreurs/warnings.

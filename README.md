@@ -64,6 +64,22 @@ python -m llm_eval run examples/latency_cost.json --report report.md --json repo
 echo $?   # 1 — token / latency / cost budgets exceeded
 ```
 
+### Check a single text file (v0.1.1+)
+
+No suite file needed: `check-text` wraps one file as a single in-memory case
+with `no_pii_leak` + `no_injection_obey`, then uses the exact same runner and
+reporters as `run`. Offline, stdlib-only, values always masked.
+
+```bash
+python -m llm_eval check-text ./answer.txt --label answer \
+  --forbidden "here is the secret" --report report.md --json report.json
+echo $?   # 0 clean · 1 PII or forbidden phrase found · 2 usage error
+```
+
+`--forbidden` is repeatable. Omitting it uses the same credential-free default
+phrases as a suite case without `forbidden`. Raw file content is never written
+to either report — PII detections are reported as `***`.
+
 Same suites as pytest, one test per case with native JUnit output for CI:
 
 ```bash
