@@ -1,7 +1,5 @@
 # llm-eval-ci
 
-<!-- Replace YOUR_ORG with the real GitHub org/user when the repo is published. -->
-
 [![CI](https://github.com/shenn667/llm-eval-ci/actions/workflows/ci.yml/badge.svg)](https://github.com/shenn667/llm-eval-ci/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/llm-eval-ci.svg)](https://pypi.org/project/llm-eval-ci/)
 [![Python](https://img.shields.io/badge/python-3.10%20%E2%80%93%203.14-blue.svg)](https://www.python.org/downloads/)
@@ -64,7 +62,7 @@ python -m llm_eval run examples/latency_cost.json --report report.md --json repo
 echo $?   # 1 — token / latency / cost budgets exceeded
 ```
 
-### Check a single text file (v0.1.1+)
+### Check a single text file (v0.1.2+)
 
 No suite file needed: `check-text` wraps one file as a single in-memory case
 with `no_pii_leak` + `no_injection_obey`, then uses the exact same runner and
